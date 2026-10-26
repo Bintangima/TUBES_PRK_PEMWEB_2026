@@ -1,6 +1,6 @@
 ## Identitas Kelompok
 - **Kelompok:** Kelompok XX (Contoh: Kelompok 01)
-- **Judul Sistem (1 dari 6):** [Tulis Judul Sistem]
+- **Tema Fakultas & Judul Sistem (1 dari 8):** [Tulis Tema Fakultas & Judul Sistem]
 
 ## Ringkasan Perubahan
 - [ ] Menambahkan fitur ...
