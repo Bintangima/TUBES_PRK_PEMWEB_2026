@@ -51,62 +51,119 @@ TUBES_PRK_PEMWEB_2026/
 
 ---
 
-## 🚀 Panduan Setup & Alur Kerja (Workflow) Praktikan
+## 🚀 Panduan Setup & Alur Kerja Kolaborasi (Best Practice)
 
-Ikuti langkah-langkah berikut secara berurutan agar kode kelompok Anda dapat tergabung (*merge*) ke repositori utama tanpa ditolak oleh sistem CI/CD:
+Untuk memudahkan kolaborasi multi-anggota di dalam satu kelompok tanpa saling menimpa kode, repositori ini merekomendasikan penggunaan **Branch `staging` sebagai branch integrasi internal kelompok** sebelum diajukan ke repositori utama LabKom:
 
-### 1. Fork Repositori Utama
-1. Buka halaman repositori utama: `https://github.com/Praktikum-LabKom-TI-Unila/TUBES_PRK_PEMWEB_2026`
-2. Klik tombol **Fork** di pojok kanan atas untuk menyalin repositori ini ke akun GitHub perwakilan kelompok Anda.
+```mermaid
+flowchart TD
+    subgraph RepoUtama["🏢 Repositori Pusat (LabKom TI Unila)"]
+        MainUpstream["upstream / main"]
+    end
 
-### 2. Clone Repositori Hasil Fork ke Lokal
-Buka Terminal / Git Bash di komputer Anda (di dalam folder `www` Laragon atau `htdocs` XAMPP), lalu jalankan:
-```bash
-git clone [https://github.com/](https://github.com/)<username-github-anda>/TUBES_PRK_PEMWEB_2026.git
-cd TUBES_PRK_PEMWEB_2026
+    subgraph RepoFork["👥 Repositori Fork Kelompok (GitHub Ketua/Perwakilan)"]
+        MainFork["origin / main (Khusus Mirror & Sync Upstream)"]
+        Staging["origin / staging (Branch Integrasi Kelompok)"]
+        Feat1["feat/kelompok-XX-auth (Anggota 1)"]
+        Feat2["feat/kelompok-XX-crud (Anggota 2)"]
+    end
+
+    MainUpstream -- "1. Fork" --> MainFork
+    MainFork -- "2. Buat branch staging" --> Staging
+    Staging -- "3. Cabang pengerjaan fitur" --> Feat1
+    Staging -- "3. Cabang pengerjaan fitur" --> Feat2
+    Feat1 -- "4. PR & Review Internal Kelompok" --> Staging
+    Feat2 -- "4. PR & Review Internal Kelompok" --> Staging
+    Staging -- "5. Pull Request Final ke LabKom" --> MainUpstream
+    MainUpstream -- "6. git pull upstream main" --> MainFork
+    MainFork -- "7. git merge main" --> Staging
 ```
-
-### 3. Tambahkan Remote `upstream` (Wajib)
-Agar Anda selalu bisa menarik (*pull*) pembaruan terbaru dari repositori utama LabKom:
-```bash
-git remote add upstream [https://github.com/Praktikum-LabKom-TI-Unila/TUBES_PRK_PEMWEB_2026.git](https://github.com/Praktikum-LabKom-TI-Unila/TUBES_PRK_PEMWEB_2026.git)
-git remote -v
-```
-
-### 4. Buat Folder Kelompok & Kerjakan Kode
-1. Buat branch baru untuk pengerjaan fitur:
-   ```bash
-   git checkout -b feat/kelompok-01-setup
-   ```
-   *(Ganti `01` dengan nomor kelompok Anda).*
-2. Masuk ke dalam folder `kelompok/` dan buat folder dengan format **`kelompok_XX`** (huruf kecil semua, dua digit angka):
-   - ✅ **Contoh benar:** `kelompok/kelompok_01/`, `kelompok/kelompok_09/`, `kelompok/kelompok_12/`
-   - ❌ **Contoh salah:** `kelompok/Kelompok_1/`, `kelompok/kelompok-01/`, `kelompok_01/` (di luar folder `kelompok`)
-
-### 5. Commit & Push ke Repositori Fork Anda
-Sebelum melakukan *commit*, pastikan hanya file di dalam folder `kelompok/kelompok_XX/` Anda yang berubah:
-```bash
-git status
-git add kelompok/kelompok_01/
-git commit -m "feat(kelompok_01): menambahkan fitur autentikasi dan struktur database"
-git push origin feat/kelompok-01-setup
-```
-
-### 6. Lakukan Pull Request (PR) ke Repositori Utama
-1. Buka repositori hasil *fork* di akun GitHub Anda, lalu klik tombol **Compare & pull request**.
-2. Pastikan arah PR adalah:
-   - **base repository:** `Praktikum-LabKom-TI-Unila/TUBES_PRK_PEMWEB_2026` (branch `main`)
-   - **head repository:** `<username-anda>/TUBES_PRK_PEMWEB_2026` (branch fitur Anda)
-3. Isi deskripsi Pull Request sesuai *template* yang muncul, lalu klik **Create pull request**.
 
 ---
 
-## 🔄 Cara Sinkronisasi Repo Sebelum Push Berikutnya
-Sebelum membuat Pull Request baru, pastikan repositori Anda sudah sinkron dengan repositori utama:
+### Langkah-Langkah Pengerjaan:
+
+### 1. Fork Repositori & Undang Anggota Kelompok
+1. Buka repositori utama: `https://github.com/Praktikum-LabKom-TI-Unila/TUBES_PRK_PEMWEB_2026`
+2. Perwakilan kelompok (Ketua) klik tombol **Fork** di pojok kanan atas.
+3. Di repositori hasil *fork*, buka menu **Settings** > **Collaborators** > klik **Add people**, lalu tambahkan akun GitHub seluruh anggota kelompok agar semuanya memiliki akses *push*.
+
+### 2. Clone Repositori Fork ke Komputer Lokal
+Seluruh anggota kelompok membuka Terminal / Git Bash di folder `www` Laragon atau `htdocs` XAMPP masing-masing:
 ```bash
+git clone https://github.com/<username-ketua>/TUBES_PRK_PEMWEB_2026.git
+cd TUBES_PRK_PEMWEB_2026
+```
+
+### 3. Tambahkan Remote `upstream` (Wajib untuk Semua Anggota)
+Hubungkan repositori lokal Anda langsung dengan repositori utama LabKom:
+```bash
+git remote add upstream https://github.com/Praktikum-LabKom-TI-Unila/TUBES_PRK_PEMWEB_2026.git
+git remote -v
+```
+
+### 4. Setup Branch Integrasi Kelompok (`staging`)
+1. **Ketua Kelompok** membuat branch `staging` dari `main` dan mengunggahnya ke GitHub fork:
+   ```bash
+   git checkout main
+   git checkout -b staging
+   git push -u origin staging
+   ```
+2. **Anggota Kelompok Lainnya** cukup mengambil branch tersebut ke lokal masing-masing:
+   ```bash
+   git fetch origin
+   git checkout staging
+   ```
+
+### 5. Pengerjaan Fitur Masing-Masing Anggota
+Setiap anggota membuat branch fitur spesifik yang dicabangkan dari **`staging`**:
+```bash
+# Pastikan berada di staging dan sudah versi terbaru
+git checkout staging
+git pull origin staging
+
+# Buat branch fitur baru
+git checkout -b feat/kelompok-01-autentikasi
+```
+
+Kerjakan kode **hanya di dalam folder `kelompok/kelompok_XX/`**:
+- ✅ **Format folder:** `kelompok/kelompok_01/`, `kelompok/kelompok_02/`, dst. (huruf kecil semua, 2 digit angka).
+- Lakukan commit dan push ke repo fork kelompok:
+  ```bash
+  git status
+  git add kelompok/kelompok_01/
+  git commit -m "feat(kelompok_01): menyelesaikan halaman login dan session"
+  git push origin feat/kelompok-01-autentikasi
+  ```
+
+### 6. Review Internal Kelompok (PR ke Branch `staging`)
+1. Buka repo fork di GitHub, buat Pull Request dari branch fitur Anda menuju branch **`staging`** di repo fork kelompok Anda sendiri.
+2. Rekan sekelompok memeriksa kode dan melakukan *Merge* ke `staging`.
+3. Seluruh anggota melakukan `git pull origin staging` untuk menguji aplikasi secara utuh di server lokal masing-masing (memastikan tidak ada error PHP dan database sinkron).
+
+### 7. Lakukan Pull Request (PR) Final ke Repositori Utama LabKom
+Setelah sistem di branch `staging` sudah lengkap, stabil, dan dites lolos di lokal:
+1. Buka repositori fork di GitHub, lalu klik **Compare & pull request**.
+2. Atur arah PR dengan tepat:
+   - **base repository:** `Praktikum-LabKom-TI-Unila/TUBES_PRK_PEMWEB_2026` (branch: `main`)
+   - **head repository:** `<username-ketua>/TUBES_PRK_PEMWEB_2026` (branch: `staging`)
+3. Isi deskripsi PR sesuai *template* yang telah disediakan dan kirimkan PR.
+4. Bot CI/CD akan otomatis memvalidasi folder isolasi, ukuran file (maks. 5MB), dan sintaks PHP.
+
+---
+
+## 🔄 Cara Sinkronisasi Repo Setelah PR Di-Merge oleh Asisten
+Setelah Pull Request kelompok Anda disetujui dan di-*merge* ke `main` LabKom oleh Asisten, lakukan sinkronisasi berikut:
+```bash
+# 1. Perbarui branch main lokal dari repositori LabKom
 git checkout main
 git pull upstream main
 git push origin main
+
+# 2. Sinkronkan branch staging agar sejajar dengan main terbaru
+git checkout staging
+git merge main
+git push origin staging
 ```
 
 ---
