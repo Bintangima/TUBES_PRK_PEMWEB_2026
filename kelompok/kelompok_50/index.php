@@ -2,7 +2,6 @@
 // Set zona waktu Indonesia
 date_default_timezone_set('Asia/Jakarta');
 
-//gacorr
 // Penanganan Formulir Pesan / Pengajuan Peminjaman Lab
 $pesan_status = null;
 $pesan_tipe = '';
