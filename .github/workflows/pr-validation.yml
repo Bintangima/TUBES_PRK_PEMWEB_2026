@@ -1,7 +1,8 @@
 name: Validasi PR Tugas Besar Pemweb
 
 on:
-  pull_request:
+  pull_request_target:
+    types: [opened, synchronize, reopened]
     branches:
       - main
       - master
@@ -10,16 +11,22 @@ jobs:
   validate-pr:
     name: Cek Isolasi Folder & Sintaks Kode
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
 
     steps:
       - name: 1. Checkout Repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0 # Wajib 0 agar bisa membandingkan diff branch dengan akurat
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 0
+          allow-unsafe-pr-checkout: true
 
       - name: 2. Cek Isolasi Folder Kelompok & File Terlarang
         run: |
           echo "Mengambil daftar file yang diubah pada Pull Request ini..."
+          git fetch origin ${{ github.base_ref }}
           CHANGED_FILES=$(git diff --name-only origin/${{ github.base_ref }}...HEAD)
           
           if [ -z "$CHANGED_FILES" ]; then
@@ -101,3 +108,23 @@ jobs:
           fi
 
           echo "✅ Seluruh file PHP bebas dari syntax error."
+
+      - name: 6. Auto-Merge PR Jika Lolos Semua Validasi
+        if: success()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "✅ Seluruh validasi lolos! Melakukan Auto-Merge Pull Request #${{ github.event.pull_request.number }}..."
+          gh pr merge ${{ github.event.pull_request.number }} --merge --repo ${{ github.repository }}
+
+      - name: 7. Auto-Close PR Jika Gagal Validasi CI/CD
+        if: failure()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "❌ Validasi gagal! Menutup Pull Request #${{ github.event.pull_request.number }} secara otomatis..."
+          gh pr close ${{ github.event.pull_request.number }} --repo ${{ github.repository }} --comment "❌ **Pull Request Ditolak dan Ditutup Otomatis oleh Sistem CI/CD.**
+
+          Kode yang Anda kirimkan melanggar ketentuan repositori (salah penamaan folder \`kelompok/kelompok_XX/\`, mengubah file di luar folder kelompok sendiri, ukuran file > 5MB, atau terdapat *syntax error* PHP).
+
+          Silakan klik tombol **Details** pada bagian *checks* yang gagal di atas untuk melihat letak kesalahan Anda, perbaiki di lokal, lalu buat Pull Request baru."
