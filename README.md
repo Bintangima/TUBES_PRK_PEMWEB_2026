@@ -5,17 +5,24 @@ Selamat datang di repositori pusat **Tugas Besar Praktikum Pemrograman Web** Lab
 
 ---
 
-## 📌 Daftar Topik Sistem (6 Judul Utama)
-Setiap kelompok wajib membangun **1 (satu) sistem secara *native*** (HTML, CSS, JavaScript, PHP Native, dan MySQL/MariaDB tanpa *framework* backend) berdasarkan salah satu dari 6 topik yang telah dipelajari:
+## 📌 Daftar Tema Sistem (8 Tema Fakultas)
+Setiap kelompok wajib membangun **1 (satu) sistem secara *native*** (HTML, CSS, JavaScript, PHP Native, dan MySQL/MariaDB tanpa *framework* backend) berdasarkan salah satu dari 8 tema fakultas di bawah ini.
 
-| Kode | Topik / Judul Sistem | Deskripsi Singkat |
-| :--- | :--- | :--- |
-| **01** | *[Isi Judul Sistem 1]* | *[Deskripsi singkat sistem 1]* |
-| **02** | *[Isi Judul Sistem 2]* | *[Deskripsi singkat sistem 2]* |
-| **03** | *[Isi Judul Sistem 3]* | *[Deskripsi singkat sistem 3]* |
-| **04** | *[Isi Judul Sistem 4]* | *[Deskripsi singkat sistem 4]* |
-| **05** | *[Isi Judul Sistem 5]* | *[Deskripsi singkat sistem 5]* |
-| **06** | *[Isi Judul Sistem 6]* | *[Deskripsi singkat sistem 6]* |
+> ⚠️ **Aturan Pemilihan Tema:**
+> 1. **Batas Kuota:** Setiap tema fakultas **maksimal hanya dapat dipilih oleh 4 (empat) kelompok**.
+> 2. **Relevansi Sistem:** Sistem yang dibangun wajib berkaitan langsung dengan bidang keilmuan, layanan, atau operasional dari fakultas yang dipilih (misalnya: jika memilih **Fakultas Kedokteran**, maka sistem wajib berkaitan dengan layanan kesehatan, rekam medis, klinik, atau apotek).
+> 3. **Koordinasi Pemilihan:** Pemilihan tema dilakukan melalui koordinasi bersama Asisten Praktikum (mekanisme *first-come, first-served* sesuai ketentuan asisten).
+
+| Kode | Tema Fakultas | Deskripsi Ruang Lingkup Sistem | Kuota |
+| :---: | :--- | :--- | :---: |
+| **01** | **Fakultas Teknik** | Sistem yang berkaitan dengan rekayasa teknologi dan keteknikan, seperti manajemen proyek konstruksi/infrastruktur, pemantauan energi/kelistrikan, inventaris alat & manajemen laboratorium teknik, sistem keselamatan kerja (K3), bengkel permesinan, perancangan tata ruang/arsitektur, atau monitoring perangkat industri. | Maks. 4 Kelompok |
+| **02** | **Fakultas FEB (Ekonomi & Bisnis)** | Sistem yang berkaitan dengan sektor ekonomi, tata kelola keuangan, dan bisnis, seperti pencatatan akuntansi & pembukuan, sistem kasir (*point of sale* / POS), manajemen persediaan/gudang, koperasi mahasiswa/karyawan, perencanaan anggaran, sistem pembiayaan/investasi mikro, atau analisis performa penjualan. | Maks. 4 Kelompok |
+| **03** | **Fakultas FISIP (Ilmu Sosial & Ilmu Politik)** | Sistem yang berkaitan dengan tata kelola sosial, kepemerintahan, dan komunikasi publik, seperti layanan administrasi kependudukan/birokrasi desa/kampus, portal pengaduan & aspirasi publik, sistem *e-voting* atau jajak pendapat, kehumasan (*public relations*), portal media pers/jurnalistik kampus, atau pengelolaan organisasi sosial. | Maks. 4 Kelompok |
+| **04** | **Fakultas Hukum** | Sistem yang berkaitan dengan regulasi hukum, administrasi peradilan, dan layanan legalitas, seperti sistem bantuan hukum (LBH), pencatatan rekam perkara/kasus pidana & perdata, repositori arsip peraturan perundang-undangan & regulasi kampus, penjadwalan persidangan semu (*moot court*), konsultasi hukum online, atau manajemen perizinan kontrak. | Maks. 4 Kelompok |
+| **05** | **Fakultas FKIP (Keguruan & Ilmu Pendidikan)** | Sistem yang berkaitan dengan dunia pendidikan, administrasi akademik sekolah/kampus, dan proses belajar-mengajar, seperti *Learning Management System* (LMS) sederhana, presensi & penilaian rapor digital, bimbingan konseling (BK), penjadwalan guru/dosen mengajar, evaluasi kurikulum, atau portal pelatihan tenaga pendidik. | Maks. 4 Kelompok |
+| **06** | **Fakultas Kedokteran** | Sistem yang berkaitan dengan layanan medis, fasilitas kesehatan, dan manajemen pasien, seperti pendaftaran antrean pasien klinik/RS, rekam medis elektronik (*electronic health record*), penjadwalan dokter/tenaga medis, manajemen stok obat & resep apotek, reservasi konsultasi medis, atau sistem informasi donor darah. | Maks. 4 Kelompok |
+| **07** | **Fakultas MIPA (Matematika & Ilmu Pengetahuan Alam)** | Sistem yang berkaitan dengan sains murni, komputasi saintifik, dan pengelolaan laboratorium, seperti sistem peminjaman instrumen & inventaris bahan kimia laboratorium, pencatatan limbah penelitian B3, pemantauan stasiun cuaca & kualitas lingkungan, pengolahan/visualisasi data riset saintifik, atau reservasi observatorium astronomi. | Maks. 4 Kelompok |
+| **08** | **Fakultas Pertanian** | Sistem yang berkaitan dengan agribisnis, pemanfaatan sumber daya hayati, dan ketahanan pangan, seperti pencatatan siklus panen & budidaya tanaman pangan/hortikultura, manajemen perkebunan, pencatatan hasil ternak & budidaya perikanan, inventaris pupuk dan bibit, logistik distribusi hasil tani, atau monitoring kesuburan lahan pertanian. | Maks. 4 Kelompok |
 
 ---
 
